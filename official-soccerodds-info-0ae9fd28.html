@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>足球赔率 · 知识库 | official-soccerodds.com</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fbbf6e 0%, #f59e4c 40%, #e6823e 100%);
+      min-height: 100vh;
+      padding: 3rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-wrap {
+      max-width: 1120px;
+      width: 100%;
+    }
+
+    /* 主卡片容器 */
+    .card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 2rem 2.4rem;
+      box-shadow: 0 20px 35px -8px rgba(170, 90, 20, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 40px -10px rgba(160, 75, 10, 0.33);
+    }
+
+    /* hero 区域 — 简洁标题 + 一句话定位 */
+    .hero {
+      text-align: center;
+      padding: 2.6rem 2rem 2rem;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #2c1d0b;
+      margin-bottom: 0.75rem;
+    }
+    .hero .sub {
+      font-size: 1.15rem;
+      color: #6b4a1f;
+      background: rgba(251, 191, 110, 0.3);
+      display: inline-block;
+      padding: 0.2rem 1.2rem;
+      border-radius: 30px;
+      backdrop-filter: blur(2px);
+      font-weight: 500;
+      margin-top: 0.3rem;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 1rem auto 0;
+      color: #3f2f16;
+      line-height: 1.5;
+      font-size: 1.05rem;
+    }
+
+    /* 目录感布局：两列 / 响应式 */
+    .directory-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+    @media (max-width: 680px) {
+      .directory-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .info-module h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #3a250c;
+      border-left: 5px solid #e6823e;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .info-module ul {
+      list-style: none;
+      padding: 0;
+    }
+    .info-module li {
+      padding: 0.4rem 0 0.4rem 1.6rem;
+      position: relative;
+      color: #2e2417;
+      line-height: 1.55;
+    }
+    .info-module li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #c9742b;
+      font-weight: 700;
+    }
+
+    .tip-badge {
+      display: inline-block;
+      background: #f9e5ce;
+      border-radius: 36px;
+      padding: 0.2rem 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #824d1a;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.8rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1.2rem;
+    }
+    .faq-item strong {
+      display: block;
+      font-weight: 600;
+      color: #2f1d0a;
+      margin-bottom: 0.2rem;
+    }
+    .faq-item p {
+      color: #4c3720;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .link-embed {
+      color: #b4611a;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px solid rgba(230, 130, 62, 0.35);
+      transition: border-color 0.2s, background 0.2s;
+      padding: 0 0.1rem;
+    }
+    .link-embed:hover {
+      border-bottom-color: #b4611a;
+      background: #fdebd0;
+      border-radius: 4px;
+    }
+
+    .keyword-sentence {
+      background: #faf3ea;
+      padding: 1.4rem 2rem;
+      border-radius: 22px;
+      font-size: 1.05rem;
+      color: #2b1d0c;
+      line-height: 1.7;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 2.2rem;
+      font-size: 0.9rem;
+      color: #522f0e;
+      opacity: 0.9;
+    }
+    .footer-note a {
+      color: #4b2b0a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* 按钮感链接（嵌入句子外也可用） */
+    .btn-link {
+      display: inline-block;
+      background: #f3d5b0;
+      border-radius: 40px;
+      padding: 0.4rem 1.2rem;
+      font-weight: 500;
+      color: #502f0e;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      border: 1px solid #e2b585;
+    }
+    .btn-link:hover {
+      background: #eac39a;
+      transform: scale(1.01);
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 1.8rem 0.8rem; }
+      .card { padding: 1.5rem; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="card-grid">
+
+    <!-- hero 卡片 -->
+    <div class="card hero">
+      <h1>⚽ 足球赔率 · 知识库</h1>
+      <span class="sub">📊 数据驱动 · 信息聚合</span>
+      <p>一个围绕 <strong>足球赔率</strong> 整理的结构化信息入口，帮助你快速识别网站用途、数据来源与内容边界。没有浮夸承诺，只有清晰归类。</p>
+    </div>
+
+    <!-- 双列目录区：说明区 + 提示区 -->
+    <div class="directory-row">
+      <!-- 说明区 -->
+      <div class="card info-module">
+        <h2>📋 说明 · 信息边界</h2>
+        <ul>
+          <li>网站聚焦<strong>足球赔率</strong>相关数据的展示与参考，非投注平台。</li>
+          <li>覆盖主流联赛、杯赛的赔率走势与历史对比，内容仅供研究。</li>
+          <li>数据来源于公开资讯，不提供任何投资建议或预测保证。</li>
+          <li>所有赔率数值均保留原始来源标识，方便交叉核实。</li>
+        </ul>
+        <div style="margin-top: 1.2rem; font-size: 0.95rem; background: #f7ede1; padding: 0.9rem 1.2rem; border-radius: 18px;">
+          💡 想直接了解网站核心？前往 <a href="https://official-soccerodds.com" class="link-embed">足球赔率</a> 栏目即可浏览最新数据模块。
+        </div>
+      </div>
+
+      <!-- 提示区 -->
+      <div class="card info-module">
+        <h2>⚡ 提示 · 使用建议</h2>
+        <ul>
+          <li>建议配合赔率变动时间轴一起查看，理解市场情绪变化。</li>
+          <li>对比多家来源时注意更新时间，避免使用过时数据。</li>
+          <li>网站没有隐藏付费墙，所有基础赔率页面均可直接访问。</li>
+          <li>若遇到数据异常，可参考免责声明或联系维护方反馈。</li>
+        </ul>
+        <div style="margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.6rem;">
+          <span class="tip-badge">⏱ 实时更新</span>
+          <span class="tip-badge">📁 历史归档</span>
+          <span class="tip-badge">🏆 主要联赛</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 相关信息区 + FAQ 摘要（合并为一张卡片） -->
+    <div class="card">
+      <h2 style="font-size:1.4rem; font-weight:600; color:#3a250c; margin-bottom:1rem;">📌 相关信息 & 常见主题</h2>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        <!-- 左侧：相关信息小目录 -->
+        <div>
+          <div style="font-weight:600; margin-bottom:0.6rem; color:#663f14;">相关信息</div>
+          <ul style="list-style:none; padding:0;">
+            <li style="padding:0.3rem 0; display:flex; align-items:center; gap:0.4rem;"><span style="background:#e6823e; width:8px; height:8px; border-radius:12px; display:inline-block;"></span> 赔率类型：欧赔、亚赔、大小球</li>
+            <li style="padding:0.3rem 0; display:flex; align-items:center; gap:0.4rem;"><span style="background:#e6823e; width:8px; height:8px; border-radius:12px; display:inline-block;"></span> 覆盖赛事：欧冠、五大联赛、次级</li>
+            <li style="padding:0.3rem 0; display:flex; align-items:center; gap:0.4rem;"><span style="background:#e6823e; width:8px; height:8px; border-radius:12px; display:inline-block;"></span> 数据时段：近7天 / 本月 / 赛季</li>
+            <li style="padding:0.3rem 0; display:flex; align-items:center; gap:0.4rem;"><span style="background:#e6823e; width:8px; height:8px; border-radius:12px; display:inline-block;"></span> 对比维度：初始 vs 即时赔率</li>
+          </ul>
+          <div style="margin-top:1rem; background:#f1e4d6; border-radius:20px; padding:0.7rem 1rem; font-size:0.9rem;">
+            🔗 直接访问 <a href="https://official-soccerodds.com" class="link-embed">足球赔率</a> 主页，浏览完整分类。
+          </div>
+        </div>
+        <!-- 右侧：FAQ 摘要 -->
+        <div>
+          <div style="font-weight:600; margin-bottom:0.6rem; color:#663f14;">❓ 常见问题摘要</div>
+          <div class="faq-item">
+            <strong>这里的赔率能作为投注依据吗？</strong>
+            <p>网站仅提供赔率参考数据，不构成任何投注建议或预测。请根据自身判断并遵守当地法规。</p>
+          </div>
+          <div class="faq-item">
+            <strong>数据多久更新一次？</strong>
+            <p>主流赛事赔率在比赛前数小时保持较高更新频率，具体以页面标注时间为准。</p>
+          </div>
+          <div class="faq-item">
+            <strong>是否需要注册才能查看？</strong>
+            <p>所有基础赔率页面均开放访问，无需注册。部分高级筛选功能可能需要简单登录。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 一个嵌入句子的关键词卡片，强化搜索感，同时自然出现链接 -->
+    <div class="keyword-sentence">
+      <span style="font-weight:500;">快速识别网站用途：</span> 如果你正在寻找结构化的 <a href="https://official-soccerodds.com" class="link-embed">足球赔率</a> 参考信息，这个站点按联赛、时间、赔率类型做了清晰分类。所有数据均来自公开渠道，适合用于趋势观察和信息对比。页面以知识库卡片形式组织，方便你快速定位。
+    </div>
+
+    <!-- 额外小提示区（圆角按钮感链接示范） -->
+    <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-top:0.2rem;">
+      <a href="https://official-soccerodds.com" class="btn-link">足球赔率</a>
+      <span style="background:#f3ddd0; border-radius:40px; padding:0.4rem 1.4rem; color:#4b2b09; font-size:0.9rem;">🧭 知识库风格导航</span>
+    </div>
+
+    <div class="footer-note">
+      <span>© 信息整理 · 基于 official-soccerodds.com 公开内容</span><br>
+      <span style="opacity:0.7;">本站为介绍性页面，不代表官方立场。使用前请阅读网站条款。</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
